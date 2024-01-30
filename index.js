@@ -43,17 +43,17 @@
           materialTypes: [ 'Article' ],
           parser: function(data) {
               var message = data.message;
-              $('#JournalIssue').val(message.issue);
-              $('#ArticlePages').val(message.page);
-              $('#ArticleTitle').val(message.title.join('. '));
-              $('#JournalVol').val(message.volume);
+              $('#JournalIssue').val(message.issue).trigger("keyup");
+              $('#ArticlePages').val(message.page).trigger("keyup");
+              $('#ArticleTitle').val(message.title.join('. ')).trigger("keyup");
+              $('#JournalVol').val(message.volume).trigger("keyup");
               $('#ArticleAuthor').val(message.author.map(function(a) {
                   return a.given + ' ' + a.family;
-              }).join('. '));
-              $('#PatronJournalTitle').val(message['container-title'].join('. '));
-              $('#SuggestedIssns').val(message.ISSN.join(' '));
-              $('#JournalMonth').val(message.published['date-parts'][0][1]);
-              $('#PatronJournalYear').val(message.published['date-parts'][0][0]);
+              }).join('. ')).trigger("keyup");
+              $('#PatronJournalTitle').val(message['container-title'].join('. ')).trigger("keyup");
+              $('#SuggestedIssns').val(message.ISSN.join(' ')).trigger("keyup");
+              $('#JournalMonth').val(message.published['date-parts'][0][1]).trigger("keyup");
+              $('#PatronJournalYear').val(message.published['date-parts'][0][0]).trigger("keyup");
           }
       },
       FreeForm: {
