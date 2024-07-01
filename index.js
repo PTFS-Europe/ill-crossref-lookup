@@ -149,21 +149,21 @@
 
       // Add the DOI if appropriate
       if (!doiField) {
-          var el = '<li style="margin-top:1rem;margin-bottom:1rem;" id="js_doi">' +
+          var doi_el = '<li style="margin-top:1rem;margin-bottom:1rem;" id="js_doi">' +
                '<label id="doi" for="doi">DOI</label>' +
                '<input type="text" name="doi" id="doi" value="">' +
                '</li>';
-          select.parent().append(el);
+          select.parent().append(doi_el);
           doiField = select.parent().find('input#doi').first();
       }
     
       // Add the Pubmedid if appropriate
       if (!pubmedidField && backend == 'FreeForm') {
-          var el = '<li id="js_pubmedid">' +
+          var pubmedid_el = '<li id="js_pubmedid">' +
                '<label id="pubmedid" for="pubmedid">PubMed ID</label>' +
                '<input type="text" name="pubmedid" id="pubmedid" value="">' +
                '</li>';
-          $('#article-freeform-fields').append(el);
+          $("#article-freeform-fields").append(pubmedid_el);
           pubmedidField = $('#article-freeform-fields').find('input#pubmedid').first();
       }
 
