@@ -23,7 +23,6 @@
             if(typeof data.result !== 'undefined'){
                 var uid = data.result.uids[0];
                 var result = data.result[uid];
-                console.log(result);
                 $('#issue').val(result.issue);
                 $('#pages').val(result.pages);
                 $('#atitle').val(result.title);
@@ -60,6 +59,7 @@
           selectName: 'type',
           materialTypes: [ 'article' ],
           parser: function(data) {
+            if(typeof data.message !== 'undefined'){
               var message = data.message;
               $('#issue').val(message.issue);
               $('#pages').val(message.page);
@@ -72,6 +72,22 @@
               $('#issn').val(message.ISSN[0]);
               $('#year').val(message.published['date-parts'][0][0]);
               $('#published_date').val(message.published['date-parts'].join('-'));
+            }
+            if(typeof data.result !== 'undefined'){
+                var uid = data.result.uids[0];
+                var result = data.result[uid];
+                $('#issue').val(result.issue);
+                $('#pages').val(result.pages);
+                $('#article_title').val(result.title);
+                $('#volume').val(result.volume);
+                $('#article_author').val(result.authors.map(function(a) {
+                    return a.name;
+                }).join('; '));
+                $('#aulast').val("");
+                $('#title').val(result.fulljournalname);
+                $('#issn').val(result.issn);
+                $('#published_date').val(result.sortpubdate.slice(0,4));
+            }
           }
       }    
   };
@@ -139,6 +155,16 @@
                '</li>';
           select.parent().append(el);
           doiField = select.parent().find('input#doi').first();
+      }
+    
+      // Add the Pubmedid if appropriate
+      if (!pubmedidField && backend == 'FreeForm') {
+          var el = '<li id="js_pubmedid">' +
+               '<label id="pubmedid" for="pubmedid">PubMed ID</label>' +
+               '<input type="text" name="pubmedid" id="pubmedid" value="">' +
+               '</li>';
+          $('#article-freeform-fields').append(el);
+          pubmedidField = $('#article-freeform-fields').find('input#pubmedid').first();
       }
 
       manageListener();
