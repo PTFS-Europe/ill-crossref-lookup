@@ -57,7 +57,7 @@
       },
       FreeForm: {
           selectName: 'type',
-          materialTypes: [ 'article' ],
+          materialTypes: [ 'article', 'chapter' ],
           parser: function(data) {
             if(typeof data.message !== 'undefined'){
               var message = data.message;
