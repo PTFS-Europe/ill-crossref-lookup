@@ -110,6 +110,7 @@
 
   // Initialise the variable to store the DOI and PubmedID elements
   var doiField;
+  var bookChapterDoiField;
   var pubmedidField;
 
   // When the select changes, keep things correct
@@ -129,14 +130,23 @@
 
       // First try to establish if the form already has a DOI field
       doiField = null;      
+      bookChapterDoiField = null;
       pubmedidField = null;
       var doiregex = /\bdoi\b/i;
+      var bookchapterdoifieldregex = /\bchapter_doi\b/i;
       var pubmedidregex = /\bpubmedid\b/i;
 
       inputs.each(function() {
           var name = $(this).attr('name');
           if (doiregex.test(name)) {
               doiField = $(this);
+          }
+      });
+
+      inputs.each(function() {
+          var name = $(this).attr('name');
+          if (bookchapterdoifieldregex.test(name)) {
+              bookChapterDoiField = $(this);
           }
       });
 
@@ -178,6 +188,15 @@
           $(doiField).on('input', function() {
              // Kick off lookup
              debounce(crossref, 1000)(doiField.val());
+          });
+      }
+
+      if (bookChapterDoiField) {
+          $(bookChapterDoiField).off('input');
+          // Add our own
+          $(bookChapterDoiField).on('input', function() {
+             // Kick off lookup
+             debounce(crossref, 1000)(bookChapterDoiField.val());
           });
       }
 
