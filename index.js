@@ -64,8 +64,12 @@
               $('#issue').val(message.issue);
               $('#pages').val(message.page);
               $('#article_title').val(message.title.join('. '));
+              $('#chapter').val(message.title.join('. '));
               $('#volume').val(message.volume);
               $('#article_author').val(message.author.map(function(a) {
+                  return a.given + ' ' + a.family;
+              }).join('. '));
+              $('#chapter_author').val(message.author.map(function(a) {
                   return a.given + ' ' + a.family;
               }).join('. '));
               $('#title').val(message['container-title'].join('. '));
@@ -79,10 +83,14 @@
                 $('#issue').val(result.issue);
                 $('#pages').val(result.pages);
                 $('#article_title').val(result.title);
+                $('#chapter').val(result.title);
                 $('#volume').val(result.volume);
                 $('#article_author').val(result.authors.map(function(a) {
                     return a.name;
                 }).join('; '));
+                $('#chapter_author').val(message.author.map(function(a) {
+                  return a.given + ' ' + a.family;
+                }).join('. '));
                 $('#aulast').val("");
                 $('#title').val(result.fulljournalname);
                 $('#issn').val(result.issn);
