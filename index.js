@@ -1,5 +1,49 @@
 /* START CROSSREF DOI / PUBMEDID LOOKUP */
 (function() {
+  var standard = {
+        selectName: 'type',
+        materialTypes: [ 'article', 'chapter' ],
+        parser: function(data) {
+            if(typeof data.message !== 'undefined'){
+                var message = data.message;
+                $('#issue').val(message.issue);
+                $('#pages').val(message.page);
+                $('#article_title').val(message.title.join('. '));
+                $('#chapter').val(message.title.join('. '));
+                $('#volume').val(message.volume);
+                $('#article_author').val(message.author.map(function(a) {
+                    return a.given + ' ' + a.family;
+                }).join('. '));
+                $('#chapter_author').val(message.author.map(function(a) {
+                    return a.given + ' ' + a.family;
+                }).join('. '));
+                $('#title').val(message['container-title'].join('. '));
+                $('#issn').val(message.ISSN[0]);
+                $('#year').val(message.published['date-parts'][0][0]);
+                $('#published_date').val(message.published['date-parts'].join('-'));
+            }
+            if(typeof data.result !== 'undefined'){
+                var uid = data.result.uids[0];
+                var result = data.result[uid];
+                $('#issue').val(result.issue);
+                $('#pages').val(result.pages);
+                $('#article_title').val(result.title);
+                $('#chapter').val(result.title);
+                $('#volume').val(result.volume);
+                $('#article_author').val(result.authors.map(function(a) {
+                    return a.name;
+                }).join('; '));
+                $('#chapter_author').val(message.author.map(function(a) {
+                    return a.given + ' ' + a.family;
+                }).join('. '));
+                $('#aulast').val("");
+                $('#title').val(result.fulljournalname);
+                $('#issn').val(result.issn);
+                $('#published_date').val(result.sortpubdate.slice(0,4));
+            }
+        }
+  };
+
   var backends = {
       ReprintsDesk: {
             materialTypes: [ 'Article' ],
@@ -55,49 +99,8 @@
               $('#PatronJournalYear').val(message.published['date-parts'][0][0]).trigger("keyup");
           }
       },
-      FreeForm: {
-          selectName: 'type',
-          materialTypes: [ 'article', 'chapter' ],
-          parser: function(data) {
-            if(typeof data.message !== 'undefined'){
-              var message = data.message;
-              $('#issue').val(message.issue);
-              $('#pages').val(message.page);
-              $('#article_title').val(message.title.join('. '));
-              $('#chapter').val(message.title.join('. '));
-              $('#volume').val(message.volume);
-              $('#article_author').val(message.author.map(function(a) {
-                  return a.given + ' ' + a.family;
-              }).join('. '));
-              $('#chapter_author').val(message.author.map(function(a) {
-                  return a.given + ' ' + a.family;
-              }).join('. '));
-              $('#title').val(message['container-title'].join('. '));
-              $('#issn').val(message.ISSN[0]);
-              $('#year').val(message.published['date-parts'][0][0]);
-              $('#published_date').val(message.published['date-parts'].join('-'));
-            }
-            if(typeof data.result !== 'undefined'){
-                var uid = data.result.uids[0];
-                var result = data.result[uid];
-                $('#issue').val(result.issue);
-                $('#pages').val(result.pages);
-                $('#article_title').val(result.title);
-                $('#chapter').val(result.title);
-                $('#volume').val(result.volume);
-                $('#article_author').val(result.authors.map(function(a) {
-                    return a.name;
-                }).join('; '));
-                $('#chapter_author').val(message.author.map(function(a) {
-                  return a.given + ' ' + a.family;
-                }).join('. '));
-                $('#aulast').val("");
-                $('#title').val(result.fulljournalname);
-                $('#issn').val(result.issn);
-                $('#published_date').val(result.sortpubdate.slice(0,4));
-            }
-          }
-      }    
+      FreeForm: standard,
+      Standard: standard
   };
 
   // Establish our backend
