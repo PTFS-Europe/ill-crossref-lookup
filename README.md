@@ -6,6 +6,7 @@ A Javascript snippet that can be inserted into OPACUserJS and IntranetUserJS tha
 - PubMed ID
 
 ## Compatible with the following backends
+- [Standard](https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=35570)
 - [RapidILL](https://github.com/PTFS-Europe/koha-ill-rapidill)
 - [FreeForm](https://github.com/PTFS-Europe/koha-ill-freeform)
 - [ReprintsDesk](https://github.com/PTFS-Europe/koha-ill-reprintsdesk)
