@@ -1,3 +1,7 @@
+# :warning: Deprecated :warning:
+
+This functionality is now part of [koha-plugin-ill-actions](https://github.com/PTFS-Europe/koha-plugin-ill-actions)
+
 # ill-crossref-lookup
 A Javascript snippet that can be inserted into OPACUserJS and IntranetUserJS that will allow the create request form to perform a metadata lookup and enrichment.
 
